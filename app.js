@@ -9,7 +9,7 @@ artApp.rijksApiKey = '3PhkUBOp';
 // Create a method which will make a call to the API and get some Date back
     // THEN we weill take that data and put it ion the page
     // Dont want data floating in the global scope, it can be changed and can slow things down
-artApp.getArt = () => {
+artApp.getArt = (chosenAnimal) => {
     // use the URL constructor to format the API endpoint to which we will be making our request
     const rijksUrl = new URL(artApp.rijksApiUrl);
     // console.log(rijksUrl);
@@ -18,7 +18,7 @@ artApp.getArt = () => {
     rijksUrl.search = new URLSearchParams({
         // include the API parameters here:
         key: artApp.rijksApiKey,
-        q: 'monkey',
+        q: chosenAnimal,
         imgonly: 'true',
     });
 
@@ -61,18 +61,24 @@ artApp.displayArt = (artArray) => {
         paragraphElement.textContent = artist;
 
         // take the elements we have created and add them to the li
-        listElement.appendChild(heading, image, paragraphElement);
+        listElement.append(heading, image, paragraphElement);
 
         // add th eli to the ul (so that the data is finally in the DOM!!)
         document.getElementById("artwork").appendChild(listElement);
     });
 };
 
+document.querySelector('option').addEventListener('click', () => {
+    
+    artApp.getArt(document.getElementById('animalChoices').value)
+})
+console.log(document.getElementById('animalChoices').value);
+
 // create and initialization method which will kick start our app
 artApp.init = () => {
     // console.log('App is initialized');
     // call the method which will get us our art data
-    artApp.getArt();
+    artApp.getArt('monkey');
 };
 
 // Call the initializatoin method (at the end of our code)
