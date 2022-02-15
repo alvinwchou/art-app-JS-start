@@ -43,9 +43,28 @@ artApp.displayArt = (artArray) => {
         const artworkUrl = artItem.webImage.url;
         const artist = artItem.principalOrFirstMaker;
         const altText = artItem.longTitle;
-        console.log(artworkTitle, artworkUrl, artist, altText);
+        // console.log(artworkTitle, artworkUrl, artist, altText);
 
-        // create li element in which this information wil be added
+        // create li element with a class of "piece" in which this information wil be added
+        const listElement = document.createElement('li')
+        listElement.classList.add('piece');
+        // create an h2 to hold the art title
+        const heading = document.createElement('h2');
+        heading.textContent = artworkTitle;
+        // create an img to hold the artwork picture
+        const image = document.createElement('img');
+        image.src = artworkUrl;
+        image.alt = altText;
+        // create a p with a class of "artist" to hold the artist name
+        const paragraphElement = document.createElement('p')
+        paragraphElement.classList.add('artist');
+        paragraphElement.textContent = artist;
+
+        // take the elements we have created and add them to the li
+        listElement.appendChild(heading, image, paragraphElement);
+
+        // add th eli to the ul (so that the data is finally in the DOM!!)
+        document.getElementById("artwork").appendChild(listElement);
     });
 };
 

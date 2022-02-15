@@ -23,7 +23,7 @@ main {
   width: 90%;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* grid-template-columns: repeat(4, 1fr); */
   gap: 50px;
 }
 
@@ -42,4 +42,16 @@ p.artist {
   width: 100%;
   display: block;
   border: solid 5px #fff;
+}
+
+main ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+}
+
+.piece {
+  margin: 10px 15px;
+  width: calc(50% - 30px);
 }
