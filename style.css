@@ -12,6 +12,10 @@ header, form {
   padding: 25px;
 }
 
+h1 span {
+  text-transform: capitalize;
+}
+
 main {
   background: #333;
   color: #fff;

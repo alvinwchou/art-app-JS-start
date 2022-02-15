@@ -29,12 +29,12 @@ artApp.getArt = (chosenAnimal) => {
         // take the data returned fro th eAPI and passing it to the display method
         artApp.displayArt(jsonResponse.artObjects)
     });
-
-    
 };
 
 // Creeate a method which will take the API data and display onour page
 artApp.displayArt = (artArray) => {
+    // clear the gallery of old art BEFORE adding new art to the page
+    document.getElementById("artwork").innerHTML = "";
     artArray.forEach( (artItem) => {
         // console.log(artItem);
 
@@ -68,17 +68,40 @@ artApp.displayArt = (artArray) => {
     });
 };
 
-document.querySelector('option').addEventListener('click', () => {
+// create a method which will update the heading of the page
+artApp.updateAnimalHeading = (animal) => {
+    document.querySelector('#page-title span').textContent = `${animal}s`;
+};
+
+// create a method which sets up all of the event listeners within this app
+artApp.eventListenerSetUp = () => {
+    // first event listener: on the select element (whenever the user selects a differnt option, take the chosen animal and get the art related to that animal)
+    document.querySelector('#animalChoices').addEventListener('change', function() {
+        // console.log("I have selected a new animal");
+
+        // This will give us back the object which owns the currently executing code (AKA the select element node object!)
+        console.log(this);
+
+        // this will give us the value of the user's selected option
+        // console.log(this.value);
+        artApp.getArt(this.value);
+
+        // update the title of the page to reflect the user's animal choice
+        artApp.updateAnimalHeading(this.value);
+        
+    })
     
-    artApp.getArt(document.getElementById('animalChoices').value)
-})
+}
 console.log(document.getElementById('animalChoices').value);
 
 // create and initialization method which will kick start our app
 artApp.init = () => {
     // console.log('App is initialized');
+    
+    // set up our event listeners (so they are ready to go as the user moves through the app)
+    artApp.eventListenerSetUp();
     // call the method which will get us our art data
-    artApp.getArt('monkey');
+    artApp.getArt('bears');
 };
 
 // Call the initializatoin method (at the end of our code)
