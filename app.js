@@ -12,7 +12,7 @@ artApp.rijksApiKey = '3PhkUBOp';
 artApp.getArt = () => {
     // use the URL constructor to format the API endpoint to which we will be making our request
     const rijksUrl = new URL(artApp.rijksApiUrl);
-    console.log(rijksUrl);
+    // console.log(rijksUrl);
 
     // format our parameters to our URL
     rijksUrl.search = new URLSearchParams({
@@ -23,16 +23,37 @@ artApp.getArt = () => {
     });
 
     // now it is time to FETCH the data fro the beautiful API we have just constructed
-    fetch(rijksUrl).then(apiResponse => apiResponse.json()).then(jsonResponse => console.log(jsonResponse.artObjects));
+    fetch(rijksUrl).then(apiResponse => apiResponse.json())
+    .then(jsonResponse => {
+        // console.log(jsonResponse.artObjects)
+        // take the data returned fro th eAPI and passing it to the display method
+        artApp.displayArt(jsonResponse.artObjects)
+    });
+
+    
 };
 
+// Creeate a method which will take the API data and display onour page
+artApp.displayArt = (artArray) => {
+    artArray.forEach( (artItem) => {
+        // console.log(artItem);
+
+        // extract the data from teh API (artist name, piece title, image URL, alt text) and save it within variables
+        const artworkTitle = artItem.title;
+        const artworkUrl = artItem.webImage.url;
+        const artist = artItem.principalOrFirstMaker;
+        const altText = artItem.longTitle;
+        console.log(artworkTitle, artworkUrl, artist, altText);
+
+        // create li element in which this information wil be added
+    });
+};
 
 // create and initialization method which will kick start our app
 artApp.init = () => {
-    console.log('App is initialized');
+    // console.log('App is initialized');
     // call the method which will get us our art data
     artApp.getArt();
-
 };
 
 // Call the initializatoin method (at the end of our code)
